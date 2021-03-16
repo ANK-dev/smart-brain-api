@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  # Backend API
+  api:
+    container_name: backend
+    build: ./
+    command: npm start
+    working_dir: /usr/bin/smart-brain-api
+    environment:
+      POSTGRES_URI: postgres://postgres:postgres@localhost:5432/smart-brain
+      # POSTGRES_USER: postgres
+      # POSTGRES_PASSWORD: postgres
+      # POSTGRES_DB: smart-brain
+      # POSTGRES_HOST: localhost
+    ports:
+      - "3000:3000"
+
+  # Postgres
+  postgres:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: smart-brain
+      POSTGRES_HOST: localhost
+    build: ./postgres
+    ports:
+      - "5432:5432"
