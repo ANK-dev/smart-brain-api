@@ -12,15 +12,13 @@ const image = require('./controllers/image');
 const db = knex({
   // connect to your own database here
   client: 'pg',
-  // not working on node v15.11/knex v0.21.6/pg v8.3.3 ?
-  // connection: process.env.POSTGRES_URI,
-  connection: {
-      user: 'postgres',
-      password: 'postgres',
-      database: 'smart-brain',
-      host: 'localhost',
-  },
-  debug: true
+  connection: process.env.POSTGRES_URI
+  // connection: {
+  //     user: 'postgres',
+  //     password: 'postgres',
+  //     database: 'smart-brain',
+  //     host: 'localhost',
+  // },
 });
 
 const app = express();

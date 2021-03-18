@@ -1,3 +1,4 @@
+// Original file
 const jwt = require('jsonwebtoken');
 const redis = require('redis');
 
@@ -7,7 +8,7 @@ const redisClient = redis.createClient(process.env.REDIS_URI);
 const handleSignin = (db, bcrypt, req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return Promise.reject('incorrect from submission')
+    return Promise.reject('incorrect form submission');
   }
   return db.select('email', 'hash').from('login')
     .where('email', '=', email)
@@ -19,10 +20,10 @@ const handleSignin = (db, bcrypt, req, res) => {
           .then(user => user[0])
           .catch(err => Promise.reject('unable to get user'))
       } else {
-        Promise.reject('wrong credentials')
+        return Promise.reject('wrong credentials');
       }
     })
-    .catch(err => Promise.reject('wrong credentials'))
+    .catch(err => console.log(err))
 }
 
 const getAuthTokenId = () => {
@@ -54,9 +55,8 @@ const signinAuthentication = (db, bcrypt) => (req, res) => {
   return authorization
     ? getAuthTokenId()
     : handleSignin(db, bcrypt, req, res)
-      .then(data => {
-        return data.id && data.email ? createSessions(data) : Promise.reject(data)
-      })
+      .then(data =>
+        data.id && data.email ? createSessions(data) : Promise.reject(data))
       .then(session => res.json(session))
       .catch(err => res.status(400).json(err));
 }
