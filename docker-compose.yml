@@ -6,8 +6,12 @@ services:
     build: ./
     command: npm start
     working_dir: /usr/bin/smart-brain-api
-    volumes:
-      - ./:/usr/bin/smart-brain-api
+
+    # For development purposes: syncs changes between local dir
+    # and docker container filesystem
+    # volumes:
+    #   - ./:/usr/bin/smart-brain-api
+
     environment:
       POSTGRES_URI: postgres://admin:password@postgres:5432/smart-brain
       REDIS_URI: redis://redis:6379
