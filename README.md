@@ -1,5 +1,5 @@
 # SmartBrain-API
-Face detection react app Server/API using Docker and PostgreSQL
+Face detection react app Server/RESTful API using Docker, PostgreSQL, and Redis
 
 1. Clone this repo
 2. Run `npm install`
